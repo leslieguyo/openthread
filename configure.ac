@@ -268,9 +268,10 @@ AM_CONDITIONAL([OPENTHREAD_BUILD_OPTIMIZED], [test "${nl_cv_build_optimized}" = 
 # Code style
 #
 
-AC_CHECK_TOOL(ASTYLE, astyle)
-AC_SUBST(ASTYLE_PRETTY_ARGS, ["--options=\${abs_top_builddir}/.astyle-opts"])
-AC_SUBST(ASTYLE_PRETTY_CHECK_ARGS, ["--options=\${abs_top_builddir}/.astyle-opts --dry-run"])
+AC_CHECK_TOOL(PRETTY, uncrustify)
+AC_CHECK_TOOL(PRETTY_CHECK, uncrustify)
+AC_SUBST(PRETTY_ARGS, ["-c=\${abs_top_builddir}/.uncrustify.cfg --replace"])
+AC_SUBST(PRETTY_CHECK_ARGS, ["-c=\${abs_top_builddir}/.uncrustify.cfg --check"])
 
 #
 # Tests
@@ -494,9 +495,10 @@ AC_MSG_NOTICE([
   C++ Compile flags                         : ${CXXFLAGS:--}
   Link flags                                : ${LDFLAGS:--}
   Link libraries                            : ${LIBS}
-  Astyle                                    : ${ASTYLE}
-  Astyle pretty args                        : ${ASTYLE_PRETTY_ARGS}
-  Astyle pretty check args                  : ${ASTYLE_PRETTY_CHECK_ARGS}
+  Pretty                                    : ${PRETTY}
+  Pretty args                               : ${PRETTY_ARGS}
+  Pretty check                              : ${PRETTY_CHECK}
+  Pretty check args                         : ${PRETTY_CHECK_ARGS}
 
 ])
 

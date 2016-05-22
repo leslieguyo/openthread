@@ -5,17 +5,15 @@ os:
   - osx
 
 before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install python-pexpect; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install uncrustify; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo easy_install pexpect; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install uncrustify; fi
 
 install:
-  - pushd ~
-  - wget https://sourceforge.net/projects/astyle/files/astyle/astyle%202.05.1/astyle_2.05.1_linux.tar.gz/download -O astyle.tar.gz
-  - tar -xzvf astyle.tar.gz
-  - pushd astyle/build/gcc && LDFLAGS=" " make
-  - export PATH=$PWD/bin:$PATH
-  - popd
-  - popd
+  - uncrustify --version
 
 script:
   - ./bootstrap-configure --enable-minimum-set-of-tests
